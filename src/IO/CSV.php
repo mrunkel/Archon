@@ -81,7 +81,12 @@ final class CSV
 
         $colmapOpt = $options['colmap'] ?? $options['mapping'];
 
-        $fileData = file_get_contents($fileName);
+        if (is_string($fileName)) {
+            $fileData = file_get_contents($fileName);
+        } else {
+            $fileData = stream_get_contents($fileName);
+        }
+
         $fileData = $this->scrubRawData($fileData, $options);
 
         if ($sepOpt === null) {

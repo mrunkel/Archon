@@ -53,7 +53,11 @@ final class FWF
         $includeRegexOpt = $options['include'];
         $excludeRegexOpt = $options['exclude'];
 
-        $fileData = file_get_contents($fileName);
+        if (is_string($fileName)) {
+            $fileData = file_get_contents($fileName);
+        } else {
+            $fileData = stream_get_contents($fileName);
+        }
         $fileData = trim($fileData);
         $fileData = str_replace("\r", '', $fileData);
         $fileData = explode("\n", $fileData);
